@@ -28,6 +28,20 @@ export default function Provider({ children }) {
             ]
     )
 
+ // player id counter
+ let prevPlayerId = 4;
+
+ const handleAddPlayer = (name) => {
+   setPlayes( prevState => [
+       ...prevState,
+         {
+           name,
+           score: 0,
+           id: prevPlayerId += 1
+         }
+       ]
+   );
+ }
 
  const handleRemovePlayer = (id) => {
    setPlayes(players.filter(p => p.id !== id));
@@ -38,6 +52,7 @@ return (
         players: players,
         actions: {
             removePlayer: handleRemovePlayer,
+            addPlayer: handleAddPlayer
         }
         }}>
         { children }

@@ -6,12 +6,12 @@ export default function PlayerList () {
     const { players } = useContext(scoreContext);
   return (
     <>
-        {players.map( (player, index) =>
+      {players.map( (player, index) =>
         <Player 
             key={player.id.toString()} 
             index={index}         
         />
-        )}
+      )}
     </>
   );
 }

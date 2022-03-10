@@ -1,5 +1,6 @@
 import React, { useContext} from 'react';
 import { scoreContext } from '../context';
+import Counter from './Counter';
 
 export default function Player({ index }) {
     const { actions, players } = useContext(scoreContext);
@@ -10,6 +11,7 @@ export default function Player({ index }) {
             <button className="remove-player" onClick={() => actions.removePlayer(players[index].id)}>✖</button>
             { players[index].name }
         </span>   
+        <Counter index={ index } />
       </div>
     );
 }

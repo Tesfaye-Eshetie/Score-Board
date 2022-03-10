@@ -2,6 +2,9 @@ import React, {useState, createContext} from 'react';
 
 export const scoreContext = createContext();
 
+ // player id counter
+ let prevPlayerId = 5;
+
 export default function Provider({ children }) {
     const [players, setPlayes] = useState(
             [
@@ -28,19 +31,28 @@ export default function Provider({ children }) {
             ]
     )
 
- // player id counter
- let prevPlayerId = 4;
+
+const handleScoreChange = (index, delta) => {
+  setPlayes(prevState =>prevState.map((player, i) => {
+    if(i === index) player.score += delta;
+    return player;
+    })
+  )
+}
 
  const handleAddPlayer = (name) => {
-   setPlayes( prevState => [
-       ...prevState,
-         {
-           name,
-           score: 0,
-           id: prevPlayerId += 1
-         }
-       ]
-   );
+   if(name){
+    setPlayes( prevState => [
+        ...prevState,
+          {
+            name,
+            score: 0,
+            id: prevPlayerId++
+          }
+        ]
+    );
+    console.log(prevPlayerId);
+  }
  }
 
  const handleRemovePlayer = (id) => {
@@ -51,6 +63,7 @@ return (
     <scoreContext.Provider value={{
         players: players,
         actions: {
+            changeScore: handleScoreChange,
             removePlayer: handleRemovePlayer,
             addPlayer: handleAddPlayer
         }
